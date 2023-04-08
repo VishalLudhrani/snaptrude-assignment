@@ -1,33 +1,36 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect, useRef, useState } from 'react'
 import './App.css'
+import mapboxgl from 'mapbox-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
+
+mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_API_KEY;
 
 function App() {
-  const [count, setCount] = useState(0)
+  const mapContainer = useRef(null);
+  const [imageUrl, setImageUrl] = useState(null);
+  
+  useEffect(() => {
+    const mapRef = new mapboxgl.Map({
+      container: mapContainer.current,
+      style: 'mapbox://styles/mapbox/streets-v11'
+    })
+
+    mapRef.on('idle', () => {
+      setImageUrl(mapRef.getCanvas().toDataURL());
+    })
+
+    return () => mapRef.remove();
+  }, [])
+  
+  const captureMap = () => {
+    console.log(imageUrl);
+  }
 
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <div ref={mapContainer} style={{ width: 400, height: 300 }}></div>
+      <button onClick={captureMap}>Click me</button>
+      <img src={imageUrl} alt="Image" width={500} height="auto" />
     </div>
   )
 }
