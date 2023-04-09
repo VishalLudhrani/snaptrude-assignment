@@ -446,6 +446,11 @@ ansi-styles@^3.2.1:
   dependencies:
     color-convert "^1.9.0"
 
+babylonjs@^5.54.0:
+  version "5.54.0"
+  resolved "https://registry.yarnpkg.com/babylonjs/-/babylonjs-5.54.0.tgz#d76d882b02c92885eab4957b3104242fbfe05ab2"
+  integrity sha512-IuW1VSssFyPC0qFRhBun/qBZSwNMGMGQJNkrppsTKALAHGQdcF9Ggj8w9Dk08Jix9IJdwNiVtFuBNLBctz/fAQ==
+
 browserslist@^4.21.3:
   version "4.21.5"
   resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-4.21.5.tgz#75c5dae60063ee641f977e00edd3cfb2fb7af6a7"
